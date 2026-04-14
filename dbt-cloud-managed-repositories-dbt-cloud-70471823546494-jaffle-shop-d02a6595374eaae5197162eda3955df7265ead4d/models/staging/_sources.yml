@@ -1,0 +1,38 @@
+version: 2
+
+sources:
+  - name: olist
+    project: banded-arcana-493310-j7
+    dataset: olist
+    tables:
+
+      - name: orders
+        description: "Raw order data from the Olist dataset"
+        columns:
+          - name: order_id
+            tests:
+              - unique
+              - not_null
+
+      - name: order_items
+        description: "Raw items data"
+        columns:
+          - name: order_id
+            tests:
+              - not_null
+
+      - name: products
+        description: "Raw product catalog"
+        columns:
+          - name: product_id
+            tests:
+              - unique
+              - not_null
+
+      - name: customers
+        description: "Raw customer demographic data"
+        columns:
+          - name: customer_id
+            tests:
+              - unique
+              - not_null

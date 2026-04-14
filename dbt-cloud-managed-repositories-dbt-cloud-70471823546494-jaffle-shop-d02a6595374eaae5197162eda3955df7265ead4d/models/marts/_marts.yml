@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: fct_sales
+    description: '{{ doc("fct_sales_description") }}'
+    columns:
+      - name: sales_key
+        description: "Primary key: Combination of Order ID and Item Number."
+        tests:
+          - unique
+          - not_null
+
+      - name: order_id
+        description: "Foreign key to orders table"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_olist__orders')
+                field: order_id
+          
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+             arguments:
+              to: ref('dim_products')
+              field: product_id
+
+  - name: dim_products
+    description: "the main dim table for dimension values like product and performance tracker"
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
